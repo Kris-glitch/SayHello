@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "328377216999",
+    "firebase_url": "https://sayhello-4ba36-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "sayhello-4ba36",
+    "storage_bucket": "sayhello-4ba36.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:328377216999:android:2cbdf2c2c56fbeccb39742",
+        "android_client_info": {
+          "package_name": "com.hfad.sayhello"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "328377216999-8qfpah5nht2bbnhla5qlufi7g4pt1o5u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hfad.sayhello",
+            "certificate_hash": "d4740068d1b3b06d2f22cc9775d03e0cb3429a04"
+          }
+        },
+        {
+          "client_id": "328377216999-rfh4n02f91ogkne1o26u5tlbeehvlrgs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0-YixO_bzfwr5ozCv1WWNM94mvbj-wOE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "328377216999-rfh4n02f91ogkne1o26u5tlbeehvlrgs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
