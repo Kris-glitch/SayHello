@@ -13,8 +13,8 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme2" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/orange2</item>
-        <item name="colorPrimaryDark">@color/orange</item>
+        <item name="colorPrimary">@color/blue2</item>
+        <item name="colorPrimaryDark">@color/blue2</item>
         <item name="colorAccent">@color/green</item>
     </style>
 </resources>
