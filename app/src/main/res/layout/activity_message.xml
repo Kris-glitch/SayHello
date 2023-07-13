@@ -25,7 +25,6 @@
             android:id="@+id/profilePictureMsg"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_gravity="center"
             app:layout_constraintEnd_toEndOf="@+id/toolbar2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/toolbar2"
@@ -37,29 +36,26 @@
             android:id="@+id/username_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/regular"
+            android:gravity="end"
             android:text="Name Surname"
             android:textColor="@color/green"
-            android:textSize="24sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@+id/toolbar2"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/toolbar2"
             app:layout_constraintTop_toBottomOf="@+id/profilePictureMsg" />
 
     </androidx.appcompat.widget.Toolbar>
 
 
     <RelativeLayout
-        android:layout_width="400dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bottom"
         android:padding="5dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_margin="10dp"
         android:background="@drawable/msg_shape"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

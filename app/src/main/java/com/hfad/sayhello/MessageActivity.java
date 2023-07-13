@@ -2,6 +2,7 @@ package com.hfad.sayhello;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -22,9 +23,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.hfad.sayhello.Adapters.MessageAdapter;
+import com.hfad.sayhello.Model.Chat;
 import com.hfad.sayhello.Model.Users;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+
 
 public class MessageActivity extends AppCompatActivity {
 
@@ -38,6 +43,11 @@ public class MessageActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     Intent intent;
 
+    MessageAdapter messageAdapter;
+    ArrayList<Chat> chatList;
+
+    String userid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +60,14 @@ public class MessageActivity extends AppCompatActivity {
         messageText = findViewById(R.id.text_send);
 
 
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        linearLayoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+
         intent = getIntent();
-        String userid = intent.getStringExtra("userid");
+        userid = intent.getStringExtra("userid");
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference("MyUsers").child(userid);
@@ -67,6 +83,8 @@ public class MessageActivity extends AppCompatActivity {
                 } else {
                     Glide.with(MessageActivity.this).load(user.getImageURL()).into(imageView);
                 }
+
+                readMessages(firebaseUser.getUid(), userid);
             }
 
             @Override
@@ -78,7 +96,7 @@ public class MessageActivity extends AppCompatActivity {
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String msg = messageText.toString();
+                String msg = messageText.getText().toString();
                 if (!msg.equals("null")){
                     sendMessage(firebaseUser.getUid(), userid, msg);
                 } else {
@@ -102,6 +120,37 @@ public class MessageActivity extends AppCompatActivity {
 
         databaseReference.child("Chats").push().setValue(hashMap);
 
+
+    }
+
+    private void readMessages(String myID, String userID){
+        chatList = new ArrayList<>();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                chatList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+
+                    Chat chat = snapshot.getValue(Chat.class);
+
+                    if(chat.getReceiver().equals(myID) && chat.getSender().equals(userID) ||
+                            chat.getReceiver().equals(userID) && chat.getSender().equals(myID)){
+
+                        chatList.add(chat);
+                    }
+
+                    messageAdapter = new MessageAdapter(MessageActivity.this, chatList);
+                    recyclerView.setAdapter(messageAdapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 }
