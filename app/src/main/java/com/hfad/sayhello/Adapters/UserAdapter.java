@@ -12,7 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.hfad.sayhello.MessageActivity;
+import com.hfad.sayhello.Model.Chat;
 import com.hfad.sayhello.Model.Users;
 import com.hfad.sayhello.R;
 
@@ -22,9 +30,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     private Context context;
     private ArrayList<Users> myUsers;
 
-    public UserAdapter(Context context, ArrayList<Users> myUsers) {
+    FirebaseUser firebaseUser;
+
+    private boolean isChat;
+
+    public UserAdapter(Context context, ArrayList<Users> myUsers, boolean isChat) {
         this.context = context;
         this.myUsers = myUsers;
+        this.isChat = isChat;
     }
 
     @NonNull
@@ -45,6 +58,27 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             Glide.with(context).load(users.getImageURL()).into(holder.userPic);
         }
 
+
+        if (isChat){
+
+            setMsgSnippet(users.getId(), holder.msgSnippet);;
+
+
+            if(users.getStatus().equals("online")){
+                holder.imageViewON.setVisibility(View.VISIBLE);
+                holder.imageViewOFF.setVisibility(View.GONE);
+            }else{
+
+                holder.imageViewON.setVisibility(View.GONE);
+                holder.imageViewOFF.setVisibility(View.VISIBLE);
+            }
+        }else{
+
+            holder.imageViewON.setVisibility(View.GONE);
+            holder.imageViewOFF.setVisibility(View.GONE);
+            holder.msgSnippet.setText("");
+        }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,6 +87,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                 context.startActivity(i);
             }
         });
+
+
     }
 
     @Override
@@ -63,6 +99,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public class UserViewHolder extends RecyclerView.ViewHolder {
         public TextView username;
         public ImageView userPic;
+        public TextView msgSnippet;
+        public ImageView imageViewON;
+        public ImageView imageViewOFF;
 
 
         public UserViewHolder(@NonNull View itemView) {
@@ -70,7 +109,40 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
             username = itemView.findViewById(R.id.username_item);
             userPic = itemView.findViewById(R.id.profilePicture);
+            msgSnippet = itemView.findViewById(R.id.msg_item);
+            imageViewON = itemView.findViewById(R.id.statusimageON);
+            imageViewOFF = itemView.findViewById(R.id.statusimageOFF);
 
         }
+    }
+
+    private void setMsgSnippet(String userID, TextView msgSnippet) {
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String lastMessage = "";
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Chat chat = snapshot.getValue(Chat.class);
+                    if (chat == null) {
+                        continue;
+                    }
+
+                    if ((chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userID)) ||
+                            (chat.getReceiver().equals(userID) && chat.getSender().equals(firebaseUser.getUid()))) {
+                        lastMessage = chat.getMessage();
+                    }
+                }
+                // Update the msgSnippet TextView with the last message
+                msgSnippet.setText(lastMessage);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle the error, if necessary
+            }
+        });
     }
 }

@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.hfad.sayhello.Fragments.ChatsFragment;
+import com.hfad.sayhello.Fragments.ProfileFragment;
 import com.hfad.sayhello.Fragments.UserFragment;
 
 public class MyPagerAdapter extends FragmentPagerAdapter {
@@ -22,6 +23,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
         switch (position){
             case 0 : return new ChatsFragment();
             case 1 : return new UserFragment();
+            case 2 : return new ProfileFragment();
             default: return null;
         }
     }

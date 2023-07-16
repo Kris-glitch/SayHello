@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setIcon(R.drawable.baseline_chat_bubble_24);
         tabLayout.getTabAt(1).setIcon(R.drawable.baseline_perm_contact_calendar_24);
+        tabLayout.getTabAt(2).setIcon(R.drawable.baseline_person_24);
 
 
 

@@ -15,4 +15,6 @@
     <string name="user">User</string>
     <string name="chat">Chat</string>
     <string name="type_your_message">Type your message...</string>
+    <string name="slogan">Chat, connect, repeat!</string>
+    <string name="seen">seen</string>
 </resources>

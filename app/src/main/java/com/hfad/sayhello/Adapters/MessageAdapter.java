@@ -36,6 +36,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     public MessageAdapter(Context context, ArrayList<Chat> myChat) {
         this.context = context;
         this.myChat = myChat;
+
     }
 
     @NonNull
@@ -55,6 +56,17 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         Chat chat = myChat.get(position);
         holder.show_msg.setText(chat.getMessage());
 
+        if (position == myChat.size() -1){
+            if (chat.isIsseen()){
+                holder.txt_seen.setText("Seen");
+            }else{
+                holder.txt_seen.setText("Delivered");
+            }
+        }
+        else
+        {
+            holder.txt_seen.setVisibility(View.GONE);
+        }
 
     }
 
@@ -65,10 +77,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     public class MessageViewHolder extends RecyclerView.ViewHolder {
         public TextView show_msg;
+        public TextView txt_seen;
         public MessageViewHolder(@NonNull View itemView) {
             super(itemView);
 
             show_msg = itemView.findViewById(R.id.show_msg);
+            txt_seen = itemView.findViewById(R.id.seen);
 
         }
     }

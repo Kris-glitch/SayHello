@@ -48,6 +48,8 @@ public class MessageActivity extends AppCompatActivity {
 
     String userid;
 
+    ValueEventListener seenListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +109,45 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
+        seenMessage(userid);
+
+
+    }
+
+    private void seenMessage(final String userid){
+
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
+
+        seenListener = databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+
+
+                    Chat chat = snapshot.getValue(Chat.class);
+
+                    if(chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid) ){
+
+
+                        HashMap<String, Object> hashMap = new HashMap<>();
+
+                        hashMap.put("isseen", true);
+                        snapshot.getRef().updateChildren(hashMap);
+
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
@@ -117,8 +158,28 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
+        hashMap.put("isseen",false);
 
         databaseReference.child("Chats").push().setValue(hashMap);
+
+        //Adding the chats in chat fragment
+
+        final DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("ChatList").child(firebaseUser.getUid()).child(userid);
+        chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.exists()){
+                    chatRef.child("id").setValue(userid);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
 
     }
@@ -152,5 +213,29 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void CheckStatus(String status){
+
+        databaseReference  = FirebaseDatabase.getInstance().getReference("MyUsers").child(firebaseUser.getUid());
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status", status);
+
+        databaseReference.updateChildren(hashMap);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CheckStatus("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        databaseReference.removeEventListener(seenListener);
+        CheckStatus("Offline");
     }
 }
