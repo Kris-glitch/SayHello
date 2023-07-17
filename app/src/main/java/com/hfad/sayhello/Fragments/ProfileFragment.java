@@ -134,7 +134,7 @@ public class ProfileFragment extends Fragment {
         progressDialog.setMessage("Uploading");
         progressDialog.show();
 
-        if(imageUri != null) {
+        if (imageUri != null) {
             final StorageReference fileReference = storageReference.child(System.currentTimeMillis()
                     + "." + getFileExtention(imageUri));
 
@@ -144,13 +144,10 @@ public class ProfileFragment extends Fragment {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
 
-                    if (!task.isSuccessful()){
-
+                    if (!task.isSuccessful()) {
                         throw  task.getException();
                     }
-
-                    return fileReference.getDownloadUrl();
-                }
+                    return fileReference.getDownloadUrl();                }
             }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                 @Override
                 public void onComplete(@NonNull Task<Uri> task) {
@@ -160,8 +157,7 @@ public class ProfileFragment extends Fragment {
                         Uri downloadUri = task.getResult();
                         String mUri = downloadUri.toString();
 
-                        dbReference = FirebaseDatabase.getInstance().getReference("ChatList").child(fuser.getUid());
-
+                        dbReference = FirebaseDatabase.getInstance().getReference("MyUsers").child(fuser.getUid());
 
                         HashMap<String, Object> map = new HashMap<>();
 
@@ -169,26 +165,19 @@ public class ProfileFragment extends Fragment {
                         dbReference.updateChildren(map);
 
                         progressDialog.dismiss();
-                    }else{
+                    } else {
 
                         Toast.makeText(getContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
                     }
 
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
-                }
+            }).addOnFailureListener(e -> {
+                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             });
-
-
-        }else
-        {
+        } else {
             Toast.makeText(getContext(), "Please select an image", Toast.LENGTH_SHORT).show();
         }
-
 
     }
 
@@ -196,26 +185,14 @@ public class ProfileFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
-        if (requestCode == IMAGE_REQUEST &&  resultCode == RESULT_OK
-                && data != null && data.getData() != null){
-
-
+        if (requestCode == IMAGE_REQUEST &&  resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
 
-
-            if (uploadTask != null && uploadTask.isInProgress()){
-
+            if (uploadTask != null && uploadTask.isInProgress()) {
                 Toast.makeText(getContext(), "Upload in progress..", Toast.LENGTH_SHORT).show();
-
-
-
-            }else {
-
+            } else {
                 UploadMyImage();
             }
-
-
         }
     }
 }

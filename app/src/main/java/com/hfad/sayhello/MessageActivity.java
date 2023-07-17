@@ -1,11 +1,13 @@
 package com.hfad.sayhello;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -49,6 +51,7 @@ public class MessageActivity extends AppCompatActivity {
     String userid;
 
     ValueEventListener seenListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +102,7 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String msg = messageText.getText().toString();
-                if (!msg.equals("null")){
+                if (!msg.equals("")){
                     sendMessage(firebaseUser.getUid(), userid, msg);
                 } else {
                     Toast.makeText(MessageActivity.this, "Please type text to send a message", Toast.LENGTH_SHORT).show();
@@ -114,7 +117,7 @@ public class MessageActivity extends AppCompatActivity {
 
     }
 
-    private void seenMessage(final String userid){
+    private void seenMessage(final String userid) {
 
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
@@ -123,20 +126,15 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-
 
                     Chat chat = snapshot.getValue(Chat.class);
 
-                    if(chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid) ){
-
+                    if (chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid)) {
 
                         HashMap<String, Object> hashMap = new HashMap<>();
-
                         hashMap.put("isseen", true);
                         snapshot.getRef().updateChildren(hashMap);
-
 
                     }
                 }
@@ -152,7 +150,7 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     private void sendMessage(String sender, String receiver, String message) {
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", sender);

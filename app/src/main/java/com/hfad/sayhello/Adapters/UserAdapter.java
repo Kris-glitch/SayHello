@@ -27,12 +27,10 @@ import com.hfad.sayhello.R;
 import java.util.ArrayList;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
-    private Context context;
-    private ArrayList<Users> myUsers;
-
+    private final Context context;
+    private final ArrayList<Users> myUsers;
     FirebaseUser firebaseUser;
-
-    private boolean isChat;
+    private final boolean isChat;
 
     public UserAdapter(Context context, ArrayList<Users> myUsers, boolean isChat) {
         this.context = context;
@@ -44,7 +42,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.user_item, parent, false);
-        return new UserAdapter.UserViewHolder(view);
+        return new UserViewHolder(view);
     }
 
     @Override
@@ -58,22 +56,20 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             Glide.with(context).load(users.getImageURL()).into(holder.userPic);
         }
 
+        String status = users.getStatus();
 
-        if (isChat){
+        if (isChat) {
 
-            setMsgSnippet(users.getId(), holder.msgSnippet);;
+            setMsgSnippet(users.getId(), holder.msgSnippet);
 
-
-            if(users.getStatus().equals("online")){
+            if (status.equals("online")) {
                 holder.imageViewON.setVisibility(View.VISIBLE);
                 holder.imageViewOFF.setVisibility(View.GONE);
-            }else{
-
+            } else {
                 holder.imageViewON.setVisibility(View.GONE);
                 holder.imageViewOFF.setVisibility(View.VISIBLE);
             }
-        }else{
-
+        } else {
             holder.imageViewON.setVisibility(View.GONE);
             holder.imageViewOFF.setVisibility(View.GONE);
             holder.msgSnippet.setText("");
@@ -96,7 +92,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         return myUsers.size();
     }
 
-    public class UserViewHolder extends RecyclerView.ViewHolder {
+    public static class UserViewHolder extends RecyclerView.ViewHolder {
         public TextView username;
         public ImageView userPic;
         public TextView msgSnippet;
@@ -135,13 +131,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                         lastMessage = chat.getMessage();
                     }
                 }
-                // Update the msgSnippet TextView with the last message
                 msgSnippet.setText(lastMessage);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle the error, if necessary
             }
         });
     }

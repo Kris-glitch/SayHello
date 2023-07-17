@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -12,7 +11,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/regular"
-        android:text="Name Surname"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.016"
@@ -22,12 +20,12 @@
     <TextView
         android:id="@+id/msg_item"
         android:layout_width="250dp"
-        android:layout_height="30dp"
+        android:layout_height="35dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="3dp"
         android:fontFamily="@font/regular"
         android:text=""
-        android:textSize="12sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toEndOf="@+id/profilePicture"
@@ -36,23 +34,25 @@
 
     <ImageView
         android:id="@+id/statusimageOFF"
+        android:contentDescription="@string/status"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/baseline_do_not_disturb_on_24"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.803"
+        app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toEndOf="@+id/username_item"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/statusimageON"
+        android:contentDescription="@string/status"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/baseline_fiber_manual_record_24"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.803"
+        app:layout_constraintHorizontal_bias="0.85"
         app:layout_constraintStart_toEndOf="@+id/username_item"
         app:layout_constraintTop_toTopOf="parent" />
 

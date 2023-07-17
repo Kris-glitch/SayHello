@@ -1,13 +1,15 @@
 package com.hfad.sayhello.Fragments;
 
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.ContactsContract;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,8 +44,6 @@ public class ChatsFragment extends Fragment {
         // Required empty public constructor
     }
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,6 +52,7 @@ public class ChatsFragment extends Fragment {
         chatRecyclerView = view.findViewById(R.id.chats_recyclerView);
         chatRecyclerView.setHasFixedSize(true);
         chatRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        chatRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 

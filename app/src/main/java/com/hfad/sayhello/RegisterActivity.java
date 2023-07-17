@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,7 +24,6 @@ import java.util.HashMap;
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText email, username, password;
-    private Button registerBtn;
 
     private FirebaseAuth auth;
     private DatabaseReference myDBRef;
@@ -38,24 +36,21 @@ public class RegisterActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
-        registerBtn = findViewById(R.id.registerBtn);
+        Button registerBtn = findViewById(R.id.registerBtn);
 
         auth = FirebaseAuth.getInstance();
 
-        registerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        registerBtn.setOnClickListener(v -> {
 
-                String username_txt = username.getText().toString().trim();
-                String email_txt = email.getText().toString().trim();
-                String password_txt = password.getText().toString().trim();
+            String username_txt = username.getText().toString().trim();
+            String email_txt = email.getText().toString().trim();
+            String password_txt = password.getText().toString().trim();
 
-                try{
-                    signUpValidation(username_txt, email_txt, password_txt);
-                    registerNow (username_txt, email_txt, password_txt);
-                }catch(InvalidRegistrationException e){
-                    Toast.makeText(RegisterActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
+            try{
+                signUpValidation(username_txt, email_txt, password_txt);
+                registerNow (username_txt, email_txt, password_txt);
+            }catch(InvalidRegistrationException e){
+                Toast.makeText(RegisterActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -90,8 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private String getCurrentUserID() {
         FirebaseUser firebaseUser = auth.getCurrentUser();
-        String userID = firebaseUser.getUid();
-        return userID;
+        return firebaseUser.getUid();
     }
 
     private HashMap createHash(String userID, String username) {
@@ -99,6 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
         hashMap.put("id", userID);
         hashMap.put("username", username);
         hashMap.put("imageURL", "default");
+        hashMap.put("status" , "offline");
 
         return hashMap;
     }

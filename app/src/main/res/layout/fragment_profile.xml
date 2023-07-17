@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/bols"
-        android:text="My Profile"
-        android:textSize="36sp"
+        android:text="@string/my_profile"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,8 +22,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_AddPhoto"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginTop="32dp"
         app:civ_border_color="@color/blue2"
         app:civ_border_width="2dp"
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:fontFamily="@font/bols"
-        android:text="Username"
+        android:text="@string/user"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -61,6 +61,7 @@
 
         <ImageView
             android:id="@+id/imageView"
+            android:contentDescription="@string/user"
             android:layout_width="250sp"
             android:layout_height="300sp"
             android:src="@drawable/profileuserpic"
@@ -79,9 +80,9 @@
             android:layout_height="wrap_content"
             android:text="@string/slogan"
             android:fontFamily="@font/semi"
-            android:textSize="30sp"
+            android:textSize="26sp"
             android:layout_marginStart = "16sp"
-            android:layout_marginTop = "16sp"/>
+            android:layout_marginTop = "50sp"/>
 
 
     </LinearLayout>
