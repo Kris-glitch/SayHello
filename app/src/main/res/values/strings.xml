@@ -17,4 +17,6 @@
     <string name="type_your_message">Type your message...</string>
     <string name="slogan">Chat, connect, repeat!</string>
     <string name="seen">seen</string>
+    <string name="status">status</string>
+    <string name="my_profile">My Profile</string>
 </resources>
