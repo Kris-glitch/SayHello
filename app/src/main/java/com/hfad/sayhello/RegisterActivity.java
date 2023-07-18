@@ -23,8 +23,8 @@ import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    public static final String EXTRA_IS_REGISTERED = "is_registered";
     private EditText email, username, password;
-
     private FirebaseAuth auth;
     private DatabaseReference myDBRef;
 
@@ -70,6 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
                             if (task.isSuccessful()){
                                 Intent i = new Intent(RegisterActivity.this, MainActivity.class);
                                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                i.putExtra(EXTRA_IS_REGISTERED, true);
                                 startActivity(i);
                                 finish();
                             }

@@ -19,4 +19,8 @@
     <string name="seen">seen</string>
     <string name="status">status</string>
     <string name="my_profile">My Profile</string>
+    <string name="default_notification_channel_id">Say Hello notification</string>
+    <string name="snackbar">We\'d like to send you notifications. Stay up-to-date with new messages.</string>
+    <string name="allow">Allow</string>
+    <string name="deny">Deny</string>
 </resources>

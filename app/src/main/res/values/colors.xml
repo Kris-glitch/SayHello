@@ -9,4 +9,6 @@
     <color name="blue2">#6BB1D3</color>
     <color name="green2">#ABCFCC</color>
     <color name="grey">#dee2e6</color>
+    <color name="grey2">#A4A5A6</color>
+    <color name="notification">#E4C1F9</color>
 </resources>
