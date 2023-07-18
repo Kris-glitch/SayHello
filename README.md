@@ -20,8 +20,8 @@ Uses Glide Library and hdodenhof CircleImageView Library
 
 Uses Activities, Fragments, Image Gallery
 
-![register](https://github.com/Kris-glitch/SayHello/assets/78586563/1be59a85-73ae-4f1c-992a-4c7863eb48fa)
-![login](https://github.com/Kris-glitch/SayHello/assets/78586563/6d3b9ee6-762b-446c-a9e6-cede801bb5e8)
+![image](https://github.com/Kris-glitch/SayHello/assets/78586563/bc13b3a2-6f70-4680-a250-99652081c33d)
+![login](https://github.com/Kris-glitch/SayHello/assets/78586563/020e0523-d80c-4ae1-ab3c-1295e54836d9)
 ![profile](https://github.com/Kris-glitch/SayHello/assets/78586563/4f00db95-bcce-4958-a55f-67558b5aa4a4)
-![chats](https://github.com/Kris-glitch/SayHello/assets/78586563/72611ed8-f11e-4aa8-8a02-4fda6d5c8760)
+![chat](https://github.com/Kris-glitch/SayHello/assets/78586563/d6689fc2-9118-461c-92ff-9837ff71b636)
 ![chat](https://github.com/Kris-glitch/SayHello/assets/78586563/d84e36c3-ed94-4491-bd53-8b484fee43db)
