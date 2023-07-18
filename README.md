@@ -24,4 +24,5 @@ Uses Activities, Fragments, Image Gallery
 ![login](https://github.com/Kris-glitch/SayHello/assets/78586563/020e0523-d80c-4ae1-ab3c-1295e54836d9)
 ![profile](https://github.com/Kris-glitch/SayHello/assets/78586563/4f00db95-bcce-4958-a55f-67558b5aa4a4)
 ![chat](https://github.com/Kris-glitch/SayHello/assets/78586563/d6689fc2-9118-461c-92ff-9837ff71b636)
-![chat](https://github.com/Kris-glitch/SayHello/assets/78586563/d84e36c3-ed94-4491-bd53-8b484fee43db)
+![chats](https://github.com/Kris-glitch/SayHello/assets/78586563/86502f3e-ae5a-4d52-bec8-b924958bfd89)
+
