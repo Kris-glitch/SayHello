@@ -1,6 +1,7 @@
 package com.hfad.sayhello;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -8,12 +9,21 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -26,6 +36,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String CHANNEL_NAME = "Test Notification";
     private static final String GROUP_NAME = "Test Group Notification";
     private static final String GROUP_ID = "test.notification";
+
 
 
     @Override
@@ -44,10 +55,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         if (message.getNotification() != null) {
             Log.v(TAG, "Message Notification: " + message.getNotification().getBody());
-            sendNotification(message.getNotification().getTitle(), message.getNotification().getBody(),message.getData());
-        }
-    }
+            String title = message.getNotification().getTitle();
+            String body = message.getNotification().getBody();
+            String id = message.getData().get("link");
+            Map<String, String> data = message.getData();
 
+            sendNotification(title, body, data);
+
+        }
+
+    }
     @Override
     public void onNewToken(@NonNull String token) {
         Log.v(TAG, "Token : " + token);
@@ -56,13 +73,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         boolean notificationPermission = preferences.getBoolean(NOTIFICATION_PERMISSION, false);
         String fcm_token = preferences.getString("fcm_token", "");
 
-        //registerNewToken(token);
-        //savteTokenToDataBase(token, userId);
-        //handle new token
-        sendRegistrationToServer(token);
-    }
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("fcm_tokens");
+        databaseReference.child(userID).setValue(token);
 
-    private void sendRegistrationToServer(String token) {
     }
 
     private void handleNow() {
@@ -71,7 +85,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private void scheduleJob() {
     }
 
-    private void sendNotification(String title, String messageBody, Map<String, String> data){
+    private void sendNotification(String title, String messageBody, Map<String, String> data) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -86,13 +100,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String channelId = getString(R.string.default_notification_channel_id);
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        NotificationCompat.Builder notification = setNotification(getApplicationContext(), channelId, title, messageBody, defaultSoundUri, GROUP_ID, pendingIntent);
+        NotificationCompat.Builder notification = null;
+        notification = setNotification(getApplicationContext(), channelId, title, messageBody, defaultSoundUri, GROUP_ID, pendingIntent);
 
-        Notification groupNotification = setGroupNotification(getApplicationContext(), channelId, GROUP_ID, true, title + " " + messageBody, "New Notifications", "Notifications Grouped");
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel myChannel = new NotificationChannel(channelId, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
+            long notificationId = System.currentTimeMillis();
+            notificationManager.createNotificationChannel(myChannel);
+            notificationManager.notify((int) notificationId, notification.build());
+        }
 
-        long notificationId = System.currentTimeMillis();
-        notificationManager.notify((int) notificationId, notification.build());
-        notificationManager.notify(0, groupNotification);
+
 
 
     }
@@ -124,27 +142,4 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         return notification;
     }
 
-    public static Notification setGroupNotification(
-            Context context,
-            String channelId,
-            String groupId,
-            boolean groupSummary,
-            String lineText,
-            String bigContentTitle,
-            String summaryText
-    ) {
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(context, channelId)
-                .setSmallIcon(R.drawable.baseline_circle_notifications_24)
-                .setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.notification))
-                .setStyle(new NotificationCompat.InboxStyle()
-                        .addLine(lineText)
-                        .setBigContentTitle(bigContentTitle)
-                        .setSummaryText(summaryText)
-                )
-                .setGroup(groupId)
-                .setGroupSummary(groupSummary)
-                .setAutoCancel(true);
-
-        return notification.build();
-    }
 }

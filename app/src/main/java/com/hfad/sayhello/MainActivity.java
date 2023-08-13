@@ -109,15 +109,14 @@ public class MainActivity extends AppCompatActivity {
                         }
                         String token = task.getResult();
                         Log.d(TAG, "Token is " + token);
-                        setNotificationPermissionStatus(true, token);
+                        setNotificationPermissionStatus(token);
                     }
                 });
     }
 
-    private void setNotificationPermissionStatus(boolean status, String fcmToken) {
+    private void setNotificationPermissionStatus(String fcmToken) {
         SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean(NOTIFICATION_PERMISSION, status);
         editor.putString("fcm_token", fcmToken);
         editor.apply();
     }

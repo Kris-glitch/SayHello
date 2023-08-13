@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -151,12 +152,14 @@ public class MessageActivity extends AppCompatActivity {
 
     private void sendMessage(String sender, String receiver, String message) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        long timestamp = System.currentTimeMillis();
 
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
         hashMap.put("isseen",false);
+        hashMap.put("timestamp",timestamp);
 
         databaseReference.child("Chats").push().setValue(hashMap);
 
@@ -185,7 +188,6 @@ public class MessageActivity extends AppCompatActivity {
     private void readMessages(String myID, String userID){
         chatList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
-
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -194,7 +196,7 @@ public class MessageActivity extends AppCompatActivity {
 
                     Chat chat = snapshot.getValue(Chat.class);
 
-                    if(chat.getReceiver().equals(myID) && chat.getSender().equals(userID) ||
+                    if (chat.getReceiver().equals(myID) && chat.getSender().equals(userID) ||
                             chat.getReceiver().equals(userID) && chat.getSender().equals(myID)){
 
                         chatList.add(chat);
@@ -228,6 +230,10 @@ public class MessageActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         CheckStatus("online");
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putLong("last_viewed_timestamp", System.currentTimeMillis());
+        editor.apply();
     }
 
     @Override
