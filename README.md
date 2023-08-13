@@ -14,6 +14,8 @@ Uses Firebase Realtime Database for storing chats and messages
 
 Uses Firebase FireStore for storing the profile images
 
+Uses Firebase Messaging Service and postman for receiving notifications for new message received
+
 Uses Firebase Authentication for registering users
 
 Uses Glide Library and hdodenhof CircleImageView Library
@@ -25,4 +27,4 @@ Uses Activities, Fragments, Image Gallery
 ![profile](https://github.com/Kris-glitch/SayHello/assets/78586563/4f00db95-bcce-4958-a55f-67558b5aa4a4)
 ![chat](https://github.com/Kris-glitch/SayHello/assets/78586563/d6689fc2-9118-461c-92ff-9837ff71b636)
 ![chats](https://github.com/Kris-glitch/SayHello/assets/78586563/86502f3e-ae5a-4d52-bec8-b924958bfd89)
-
+![notification](https://github.com/Kris-glitch/SayHello/assets/78586563/ab993a7d-9f84-4b5c-9eae-4984879c9918)
