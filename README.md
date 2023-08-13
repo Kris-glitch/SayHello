@@ -22,6 +22,9 @@ Uses Glide Library and hdodenhof CircleImageView Library
 
 Uses Activities, Fragments, Image Gallery
 
+---- Illustrations for UI used ----
+- DrawKit Influencers & Content Creators Illustrations
+
 ![image](https://github.com/Kris-glitch/SayHello/assets/78586563/bc13b3a2-6f70-4680-a250-99652081c33d)
 ![login](https://github.com/Kris-glitch/SayHello/assets/78586563/020e0523-d80c-4ae1-ab3c-1295e54836d9)
 ![profile](https://github.com/Kris-glitch/SayHello/assets/78586563/4f00db95-bcce-4958-a55f-67558b5aa4a4)
