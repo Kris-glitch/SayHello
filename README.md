@@ -10,17 +10,17 @@ Allows users to message in real-time.
 
 ---- Tech used ----
 
-Uses Firebase Realtime Database for storing chats and messages
+- Uses Firebase Realtime Database for storing chats and messages
 
-Uses Firebase FireStore for storing the profile images
+- Uses Firebase FireStore for storing the profile images
 
-Uses Firebase Messaging Service and postman for receiving notifications for new message received
+- Uses Firebase Messaging Service and postman for receiving notifications for new message received
 
-Uses Firebase Authentication for registering users
+- Uses Firebase Authentication for registering users
 
-Uses Glide Library and hdodenhof CircleImageView Library
+- Uses Glide Library and hdodenhof CircleImageView Library
 
-Uses Activities, Fragments, Image Gallery
+- Uses Activities, Fragments, Image Gallery
 
 ---- Illustrations for UI used ----
 - DrawKit Influencers & Content Creators Illustrations
