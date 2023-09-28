@@ -14,7 +14,7 @@ Allows users to message in real-time.
 
 - Uses Firebase FireStore for storing the profile images
 
-- Uses Firebase Messaging Service and postman for receiving notifications for new message received
+- Uses Firebase Messaging Service and postman to receive notifications for new messages received
 
 - Uses Firebase Authentication for registering users
 
