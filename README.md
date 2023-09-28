@@ -25,9 +25,10 @@ Allows users to message in real-time.
 ---- Illustrations for UI used ----
 - DrawKit Influencers & Content Creators Illustrations
 
-![image](https://github.com/Kris-glitch/SayHello/assets/78586563/bc13b3a2-6f70-4680-a250-99652081c33d)
-![login](https://github.com/Kris-glitch/SayHello/assets/78586563/020e0523-d80c-4ae1-ab3c-1295e54836d9)
-![profile](https://github.com/Kris-glitch/SayHello/assets/78586563/4f00db95-bcce-4958-a55f-67558b5aa4a4)
-![chat](https://github.com/Kris-glitch/SayHello/assets/78586563/d6689fc2-9118-461c-92ff-9837ff71b636)
-![chats](https://github.com/Kris-glitch/SayHello/assets/78586563/86502f3e-ae5a-4d52-bec8-b924958bfd89)
-![notification](https://github.com/Kris-glitch/SayHello/assets/78586563/ab993a7d-9f84-4b5c-9eae-4984879c9918)
+
+![login](https://github.com/Kris-glitch/SayHello/assets/78586563/6690df06-5aeb-4a5f-ace7-985cebbd21d2)
+![register](https://github.com/Kris-glitch/SayHello/assets/78586563/973c6a15-315c-4b34-b68c-c9905ef10241)
+![chats](https://github.com/Kris-glitch/SayHello/assets/78586563/7c568272-c542-418f-a847-56bb12177466)
+![profile](https://github.com/Kris-glitch/SayHello/assets/78586563/07db08c4-e7e1-4aee-95fe-c3bdf5c18c77)
+![chat](https://github.com/Kris-glitch/SayHello/assets/78586563/f7dc5674-230f-4269-adbe-e06ca9d81b63)
+![notification](https://github.com/Kris-glitch/SayHello/assets/78586563/eccd2564-9437-48ba-a029-3a117808474d)
