@@ -1,4 +1,4 @@
-# SayHello
+# SayHello - Android chat app / Java / Firebase 
 WhatsApp clone, a chat app for Android. 
 The app uses Java, XML, and Firebase technologies
 Allows users to register or log in with password validation such as min of 8 chars, min one uppercase letter, and min one number in the password.
